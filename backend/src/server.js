@@ -56,7 +56,16 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get('/api/health', async (req, res) => {
+  if (mongoose.connection.readyState === 0 && process.env.MONGODB_URI) {
+    try {
+      await mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 8000 });
+      global.lastDbError = null;
+    } catch (e) {
+      global.lastDbError = e.message;
+    }
+  }
+
   const dbStates = ['disconnected', 'connected', 'connecting', 'disconnecting'];
   const stateIndex = mongoose.connection.readyState;
   const dbState = dbStates[stateIndex] || 'unknown';
