@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
 
@@ -56,8 +57,19 @@ app.use('/api/admin', adminRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
+  const dbStates = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+  const stateIndex = mongoose.connection.readyState;
+  const dbState = dbStates[stateIndex] || 'unknown';
+  const hasUri = Boolean(process.env.MONGODB_URI);
+  const isAtlas = hasUri ? process.env.MONGODB_URI.startsWith('mongodb+srv://') : false;
+
   res.status(200).json({
-    status: 'healthy',
+    status: dbState === 'connected' ? 'healthy' : 'degraded',
+    database: {
+      status: dbState,
+      isAtlas,
+      uriConfigured: hasUri,
+    },
     timestamp: new Date().toISOString(),
     theme: 'Baby-Pink & White',
     system: 'Blossom Hospital Appointment Booking System',
