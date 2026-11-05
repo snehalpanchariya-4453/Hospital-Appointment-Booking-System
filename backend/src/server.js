@@ -69,6 +69,7 @@ app.get('/api/health', (req, res) => {
       status: dbState,
       isAtlas,
       uriConfigured: hasUri,
+      lastError: global.lastDbError || null,
     },
     timestamp: new Date().toISOString(),
     theme: 'Baby-Pink & White',

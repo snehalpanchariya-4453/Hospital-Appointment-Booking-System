@@ -9,8 +9,10 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 15000,
     });
     console.log(`🌸 MongoDB Connected successfully: ${conn.connection.host}:${conn.connection.port || '27017'}/${conn.connection.name}`);
+    global.lastDbError = null;
     return conn;
   } catch (error) {
+    global.lastDbError = error.message;
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
     console.warn(`
 ⚠️  TIP: If using local MongoDB (Compass):
