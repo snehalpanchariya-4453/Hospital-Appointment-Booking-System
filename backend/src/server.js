@@ -48,12 +48,18 @@ app.use(
   })
 );
 
-// Mount API routes
+// Mount API routes (supports both /api/path and direct /path)
 app.use('/api/auth', authRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/admin', adminRoutes);
+
+app.use('/auth', authRoutes);
+app.use('/departments', departmentRoutes);
+app.use('/doctors', doctorRoutes);
+app.use('/appointments', appointmentRoutes);
+app.use('/admin', adminRoutes);
 
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
