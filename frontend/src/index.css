@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom Soft Pink Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff0f3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f48fb1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ec407a;
+}
+
+/* Glassmorphism utility classes */
+.glass-pink {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(252, 228, 236, 0.8);
+}
+
+.glass-card {
+  background: #ffffff;
+  border: 1px solid #fce4ec;
+  box-shadow: 0 4px 20px -2px rgba(248, 187, 208, 0.25);
+}
+
+.gradient-pink-bg {
+  background: linear-gradient(135deg, #fff5f7 0%, #ffffff 50%, #fce4ec 100%);
+}
+
+.gradient-pink-btn {
+  background: linear-gradient(135deg, #f06292 0%, #ec407a 100%);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.gradient-pink-btn:hover {
+  background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
+  box-shadow: 0 4px 15px rgba(236, 64, 122, 0.35);
+  transform: translateY(-1px);
+}
